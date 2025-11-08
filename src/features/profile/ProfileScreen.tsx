@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { Button, Text, View } from 'react-native'
-import { SafeAreaView } from 'react-native-safe-area-context'
 
 import { useSpotifyApi } from '$api/spotify/spotify'
+import { TabScreen } from '$ui/components/molecules/Screen'
 
 export const ProfileScreen = () => {
   const { loginInBrowser, isGettingToken, logout, isAuthenticated } = useSpotifyApi()
@@ -18,7 +18,7 @@ export const ProfileScreen = () => {
   }
 
   return (
-    <SafeAreaView className="flex-1" edges={['top']}>
+    <TabScreen title="Profile">
       <View className="flex-1 items-center justify-center">
         {isAuthenticated ? (
           <>
@@ -41,6 +41,6 @@ export const ProfileScreen = () => {
           </>
         )}
       </View>
-    </SafeAreaView>
+    </TabScreen>
   )
 }

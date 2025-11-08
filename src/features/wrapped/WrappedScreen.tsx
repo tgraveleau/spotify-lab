@@ -1,35 +1,22 @@
-import { FlatList, Image, Text, View } from 'react-native'
-import { SafeAreaView } from 'react-native-safe-area-context'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
-import { useTopTracks } from '$api/spotify/tracks'
+import { useTopTracks } from '$api/spotify/topTracks'
+import { Box } from '$ui/components/atoms'
+import { FlatList, TabScreen } from '$ui/components/molecules'
+import { Track } from '$ui/components/organisms'
 
 export const WrappedScreen = () => {
   const { data } = useTopTracks()
+  const insets = useSafeAreaInsets()
   return (
-    <SafeAreaView className="flex-1" edges={['top']}>
-      <View className="flex-1 items-center justify-center">
-        <Text>Wrapped</Text>
-        <Text>Top tracks of last 4 weeks</Text>
-        <FlatList
-          keyExtractor={(item) => item.id}
-          data={data}
-          renderItem={({ item }) => (
-            <View>
-              <Image
-                source={{ uri: item.album.images[0].url }}
-                style={{ width: 100, height: 100 }}
-              />
-              <Text>
-                {item.name} - {item.artists[0].name}
-              </Text>
-              <Text>Album : {item.album.name}</Text>
-              <Text>Temps d&apos;écoute : {item.duration_ms}</Text>
-              <Text>Popularité (nombre d&apos;écoute ?) : {item.popularity}</Text>
-            </View>
-          )}
-          ItemSeparatorComponent={() => <View className="my-2 border-b border-gray-200" />}
-        />
-      </View>
-    </SafeAreaView>
+    <TabScreen title="Wrapped" subtitle="Top tracks of last 4 weeks">
+      <FlatList
+        withBottomSafeArea
+        keyExtractor={(item) => item.id}
+        data={data}
+        renderItem={({ item }) => <Track track={item} />}
+        ListFooterComponent={() => <Box style={{ height: insets.bottom }} />}
+      />
+    </TabScreen>
   )
 }
