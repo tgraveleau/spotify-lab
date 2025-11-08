@@ -1,7 +1,7 @@
 import axios, { AxiosError, InternalAxiosRequestConfig } from 'axios'
 
 import { SPOTIFY_CONFIG } from '$api/spotify/spotify.constants'
-import { spotifyStore } from '$api/spotify/spotify.store'
+import { useSpotifyStore } from '$api/spotify/spotify.store'
 
 import { AuthResponse } from './spotify.types'
 
@@ -39,8 +39,8 @@ const processQueue = (error: AxiosError | null, token: string | null = null) => 
 // Request interceptor: adds the access token to the Authorization header
 spotifyApi.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
-    const accessToken = spotifyStore.getState().accessToken
-    const tokenType = spotifyStore.getState().tokenType ?? 'Bearer'
+    const accessToken = useSpotifyStore.getState().accessToken
+    const tokenType = useSpotifyStore.getState().tokenType ?? 'Bearer'
     if (accessToken) {
       config.headers.Authorization = `${tokenType} ${accessToken}`
     }
@@ -82,7 +82,7 @@ spotifyApi.interceptors.response.use(
       originalRequest._retry = true
       isRefreshing = true
 
-      const refreshToken = spotifyStore.getState().refreshToken
+      const refreshToken = useSpotifyStore.getState().refreshToken
 
       if (!refreshToken) {
         isRefreshing = false
@@ -101,7 +101,7 @@ spotifyApi.interceptors.response.use(
 
         const { access_token, refresh_token: newRefreshToken, token_type } = response.data
 
-        spotifyStore.setState({
+        useSpotifyStore.setState({
           accessToken: access_token,
           refreshToken: newRefreshToken || refreshToken,
           tokenType: token_type,
@@ -119,7 +119,7 @@ spotifyApi.interceptors.response.use(
         isRefreshing = false
         processQueue(refreshError as AxiosError, null)
 
-        spotifyStore.setState({
+        useSpotifyStore.setState({
           accessToken: undefined,
           refreshToken: undefined,
         })

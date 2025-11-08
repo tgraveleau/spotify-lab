@@ -2,10 +2,11 @@ import { useMutation } from '@tanstack/react-query'
 
 import { spotifyAccountsApi } from './spotify.api'
 import { SPOTIFY_CONFIG } from './spotify.constants'
-import { spotifyStore } from './spotify.store'
+import { useSpotifyStore } from './spotify.store'
 import { AuthResponse } from './spotify.types'
 
 export const useAuth = () => {
+  const { login } = useSpotifyStore()
   return useMutation({
     mutationFn: async ({
       codeVerifier,
@@ -29,11 +30,7 @@ export const useAuth = () => {
       return response.data
     },
     onSuccess: (data) => {
-      spotifyStore.setState({
-        accessToken: data.access_token,
-        refreshToken: data.refresh_token,
-        tokenType: data.token_type,
-      })
+      login(data.access_token, data.refresh_token, data.token_type)
     },
     onError: (error) => {
       console.error(error)

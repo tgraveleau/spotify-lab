@@ -1,5 +1,18 @@
-import { Redirect } from 'expo-router'
+import { Redirect, Stack } from 'expo-router'
+
+import { useSpotifyApi } from '$api/spotify/spotify'
 
 export default function RootRoute() {
-  return <Redirect href="/(tabs)/wrapped" />
+  const { isAuthenticated } = useSpotifyApi()
+
+  if (isAuthenticated) {
+    return <Redirect href="/(tabs)/wrapped" />
+  }
+
+  return (
+    <>
+      <Stack.Screen options={{ headerShown: false }} />
+      <Redirect href="/(tabs)/profile" />
+    </>
+  )
 }

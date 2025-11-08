@@ -4,15 +4,15 @@ import { useEffect } from 'react'
 import { SPOTIFY_CONFIG } from '$api/spotify/spotify.constants'
 
 import { useAuth } from './auth'
-import { spotifyStore } from './spotify.store'
+import { useSpotifyStore } from './spotify.store'
 
 export const useSpotifyApi = () => {
-  const redirectUri = makeRedirectUri({ scheme: 'spotifylab', path: 'oauth' })
+  const { logout, isAuthenticated } = useSpotifyStore()
   const [request, response, promptAsync] = useAuthRequest(
     {
       clientId: SPOTIFY_CONFIG.CLIENT_ID,
       scopes: SPOTIFY_CONFIG.SCOPES,
-      redirectUri,
+      redirectUri: makeRedirectUri({ scheme: 'spotifylab', path: 'oauth' }),
     },
     {
       authorizationEndpoint: `${SPOTIFY_CONFIG.ACCOUNTS_BASE_URL}/authorize`,
@@ -42,12 +42,6 @@ export const useSpotifyApi = () => {
     }
     fetchToken()
   }, [request?.codeVerifier, request?.redirectUri, response, getToken])
-
-  const logout = () => {
-    spotifyStore.setState({ accessToken: undefined, refreshToken: undefined })
-  }
-
-  const isAuthenticated = !!spotifyStore.getState().accessToken
 
   return {
     loginInBrowser: promptAsync,
