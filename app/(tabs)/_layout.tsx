@@ -1,34 +1,25 @@
 import { Tabs } from 'expo-router'
-import React from 'react'
+import { NativeTabs, Icon, Label } from 'expo-router/unstable-native-tabs'
 
-import { HapticTab } from '$ui/components/haptic-tab'
-import { IconSymbol } from '$ui/components/ui/icon-symbol'
+import { colors } from '$ui/theme/colors'
 
 export default function TabLayout() {
-  return (
-    <Tabs
-      screenOptions={{
-        tabBarActiveTintColor: '#1DB954',
-        headerShown: false,
-        tabBarButton: HapticTab,
-      }}
-    >
-      <Tabs.Screen
-        name="wrapped"
-        options={{
-          title: 'Wrapped',
-          tabBarIcon: ({ color }) => (
-            <IconSymbol size={28} name="list.bullet.circle.fill" color={color} />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="profile"
-        options={{
-          title: 'Profile',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="person.fill" color={color} />,
-        }}
-      />
+  const liquidGlassActivated = true
+  return liquidGlassActivated ? (
+    <NativeTabs tintColor={colors.text.accent}>
+      <NativeTabs.Trigger name="wrapped">
+        <Icon sf={{ default: 'list.bullet.rectangle', selected: 'list.bullet.rectangle.fill' }} />
+        <Label>Wrapped</Label>
+      </NativeTabs.Trigger>
+      <NativeTabs.Trigger name="profile">
+        <Icon sf={{ default: 'person', selected: 'person.fill' }} />
+        <Label>Profile</Label>
+      </NativeTabs.Trigger>
+    </NativeTabs>
+  ) : (
+    <Tabs>
+      <Tabs.Screen name="wrapped" options={{ title: 'Wrapped' }} />
+      <Tabs.Screen name="profile" options={{ title: 'Profile' }} />
     </Tabs>
   )
 }

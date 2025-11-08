@@ -1,10 +1,7 @@
-// https://docs.expo.dev/guides/using-eslint/
 const { defineConfig } = require('eslint/config')
-const expoConfig = require('eslint-config-expo/flat')
 const configUniverse = require('eslint-config-universe/flat/native')
 
 module.exports = defineConfig([
-  expoConfig,
   configUniverse,
   {
     files: ['**/*.js', '**/*.ts', '**/*.jsx', '**/*.tsx'],

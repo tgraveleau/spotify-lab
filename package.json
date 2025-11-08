@@ -3,7 +3,7 @@
   "main": "expo-router/entry",
   "version": "1.0.0",
   "scripts": {
-    "start": "expo start",
+    "start": "expo start --dev-client",
     "reset-project": "node ./scripts/reset-project.js",
     "android": "expo run:android",
     "ios": "expo run:ios",
@@ -13,6 +13,7 @@
     "build:ios": "expo build:ios"
   },
   "dependencies": {
+    "@expo-google-fonts/inter": "^0.4.2",
     "@expo/vector-icons": "^15.0.3",
     "@react-navigation/bottom-tabs": "^7.4.0",
     "@react-navigation/elements": "^2.6.3",
@@ -20,7 +21,7 @@
     "@spotify/web-api-ts-sdk": "^1.2.0",
     "@tanstack/react-query": "^5.90.6",
     "axios": "^1.13.2",
-    "expo": "~54.0.22",
+    "expo": "^54.0.23",
     "expo-auth-session": "^7.0.8",
     "expo-constants": "~18.0.10",
     "expo-crypto": "^15.0.7",
@@ -53,7 +54,6 @@
     "@tanstack/eslint-plugin-query": "^5.91.2",
     "@types/react": "~19.1.0",
     "eslint": "^9.25.0",
-    "eslint-config-expo": "~10.0.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-config-universe": "^15.0.3",
     "eslint-plugin-prettier": "^5.5.4",
