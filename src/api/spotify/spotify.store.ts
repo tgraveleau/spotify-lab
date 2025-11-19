@@ -12,7 +12,7 @@ interface SpotifyState {
   isAuthenticated: boolean
 }
 
-const KEY = 'auth'
+const KEY = 'spotify'
 const storage = createStorage(KEY)
 export const useSpotifyStore = create<SpotifyState>()(
   persist(
@@ -21,8 +21,14 @@ export const useSpotifyStore = create<SpotifyState>()(
       refreshToken: undefined,
       tokenType: undefined,
       login: (accessToken, refreshToken, tokenType) =>
-        set({ accessToken, refreshToken, tokenType }),
-      logout: () => set({ accessToken: undefined, refreshToken: undefined, tokenType: undefined }),
+        set({ accessToken, refreshToken, tokenType, isAuthenticated: true }),
+      logout: () =>
+        set({
+          accessToken: undefined,
+          refreshToken: undefined,
+          tokenType: undefined,
+          isAuthenticated: false,
+        }),
       isAuthenticated: !!get()?.accessToken,
     }),
     {

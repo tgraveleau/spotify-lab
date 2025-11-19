@@ -1,7 +1,8 @@
 import { useState } from 'react'
-import { Button, Text, View } from 'react-native'
+import { Button } from 'react-native'
 
 import { useSpotifyApi } from '$api/spotify/spotify'
+import { Box, Text } from '$ui/components/atoms'
 import { TabScreen } from '$ui/components/molecules/Screen'
 
 export const ProfileScreen = () => {
@@ -19,7 +20,7 @@ export const ProfileScreen = () => {
 
   return (
     <TabScreen title="Profile">
-      <View className="flex-1 items-center justify-center">
+      <Box centered>
         {isAuthenticated ? (
           <>
             <Text>Connected</Text>
@@ -34,13 +35,13 @@ export const ProfileScreen = () => {
               disabled={isGettingToken}
             />
             {error && (
-              <View className="bg-red-900/50 p-4 rounded-lg mb-4 w-full max-w-sm">
+              <Box className="bg-red-900/50 p-4 rounded-lg mb-4 w-full max-w-sm">
                 <Text className="text-red-200 text-center">{error}</Text>
-              </View>
+              </Box>
             )}
           </>
         )}
-      </View>
+      </Box>
     </TabScreen>
   )
 }
