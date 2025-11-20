@@ -91,10 +91,8 @@ export interface PaginatedResponse<T> {
 
 export type Scopes = 'user-top-read' | 'playlist-modify-public'
 
-export type AuthResponse = {
-  access_token: string
-  refresh_token: string
-  expires_in: number
-  token_type: string
-  scope: Scopes[]
+export type User = {
+  id: string
+  displayName: string
+  image?: string
 }

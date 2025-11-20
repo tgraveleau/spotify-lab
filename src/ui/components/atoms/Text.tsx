@@ -3,17 +3,29 @@ import { twMerge } from 'tailwind-merge'
 
 type Variant = 'body' | 'title' | 'subtitle' | 'caption'
 type Intent = 'default' | 'success' | 'warning' | 'info' | 'danger'
+type Weight = 'regular' | 'medium' | 'semibold' | 'bold'
 export type TextProps = RNTextProps & {
   variant?: Variant
   intent?: Intent
+  weight?: Weight
 }
 
-export const Text = ({ variant = 'body', intent = 'default', className, ...props }: TextProps) => {
-  const variantClassName = variants[variant]
-  const intentClassName = intents[intent]
+export const Text = ({
+  variant = 'body',
+  intent = 'default',
+  weight = 'regular',
+  className,
+  ...props
+}: TextProps) => {
   return (
     <RNText
-      className={twMerge('font-[Inter]', variantClassName, intentClassName, className)}
+      className={twMerge(
+        'font-[Inter]',
+        variants[variant],
+        intents[intent],
+        weights[weight],
+        className
+      )}
       {...props}
     />
   )
@@ -31,4 +43,10 @@ const intents: Record<Intent, string> = {
   warning: 'text-yellow-500',
   info: 'text-blue-500',
   danger: 'text-red-500',
+}
+const weights: Record<Weight, string> = {
+  regular: 'font-regular',
+  medium: 'font-medium',
+  semibold: 'font-semibold',
+  bold: 'font-bold',
 }

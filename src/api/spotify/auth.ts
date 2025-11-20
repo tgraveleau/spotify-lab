@@ -1,9 +1,9 @@
 import { useMutation } from '@tanstack/react-query'
 
-import { spotifyAccountsApi } from './spotify.api'
+import { spotifyAccountsApi, spotifyApi } from './spotify.api'
 import { SPOTIFY_CONFIG } from './spotify.constants'
 import { useSpotifyStore } from './spotify.store'
-import { AuthResponse } from './spotify.types'
+import { Scopes } from './spotify.types'
 
 export const useAuth = () => {
   const { login } = useSpotifyStore()
@@ -17,7 +17,13 @@ export const useAuth = () => {
       redirectUri: string
       code: string
     }) => {
-      const response = await spotifyAccountsApi.post<AuthResponse>(
+      const response = await spotifyAccountsApi.post<{
+        access_token: string
+        refresh_token: string
+        expires_in: number
+        token_type: string
+        scope: Scopes[]
+      }>(
         '/api/token',
         new URLSearchParams({
           grant_type: 'authorization_code',
@@ -29,8 +35,20 @@ export const useAuth = () => {
       )
       return response.data
     },
-    onSuccess: (data) => {
+    onSuccess: async (data) => {
       login(data.access_token, data.refresh_token, data.token_type)
+      const response = await spotifyApi.get<{
+        id: string
+        display_name: string
+        images: { url: string }[]
+      }>('/me')
+      useSpotifyStore.setState({
+        user: {
+          id: response.data.id,
+          displayName: response.data.display_name,
+          image: response.data.images[0]?.url,
+        },
+      })
     },
     onError: (error) => {
       console.error(error)

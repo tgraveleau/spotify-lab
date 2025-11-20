@@ -2,8 +2,8 @@ import { useQuery } from '@tanstack/react-query'
 
 import { Track } from '$types/track'
 
-import { spotifyApi } from './spotify.api'
-import { PaginatedResponse, TopTrack } from './spotify.types'
+import { spotifyApi } from '../spotify.api'
+import { PaginatedResponse, TopTrack } from '../spotify.types'
 
 export const useTopTracks = () => {
   return useQuery({

@@ -1,2 +1,2 @@
-export * from './FlatList'
-export * from './Screen'
+export * from './Badge'
+export * from './Button'

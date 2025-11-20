@@ -3,7 +3,7 @@ import { Button } from 'react-native'
 
 import { useSpotifyApi } from '$api/spotify/spotify'
 import { Box, Text } from '$ui/components/atoms'
-import { TabScreen } from '$ui/components/molecules/Screen'
+import { TabScreen } from '$ui/components/layout'
 
 export const ProfileScreen = () => {
   const { loginInBrowser, isGettingToken, logout, isAuthenticated } = useSpotifyApi()

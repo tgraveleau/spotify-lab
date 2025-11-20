@@ -9,8 +9,17 @@ export default function TabLayout() {
         <Icon sf={{ default: 'list.bullet.rectangle', selected: 'list.bullet.rectangle.fill' }} />
         <Label>Wrapped</Label>
       </NativeTabs.Trigger>
+      <NativeTabs.Trigger name="discover">
+        <Icon
+          sf={{
+            default: 'rectangle.and.text.magnifyingglass',
+            selected: 'rectangle.and.text.magnifyingglass.rtl',
+          }}
+        />
+        <Label>Discover</Label>
+      </NativeTabs.Trigger>
       <NativeTabs.Trigger name="profile">
-        <Icon sf={{ default: 'person', selected: 'person.fill' }} />
+        <Icon sf={{ default: 'person.crop.circle', selected: 'person.crop.circle.fill' }} />
         <Label>Profile</Label>
       </NativeTabs.Trigger>
     </NativeTabs>

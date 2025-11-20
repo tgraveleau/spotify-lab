@@ -1,9 +1,9 @@
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
-import { useTopTracks } from '$api/spotify/topTracks'
+import { useTopTracks } from '$api/spotify/calls'
 import { Box } from '$ui/components/atoms'
-import { FlatList, TabScreen } from '$ui/components/molecules'
-import { Track } from '$ui/components/organisms'
+import { TabScreen } from '$ui/components/layout'
+import { FlatList, Track } from '$ui/components/organisms'
 
 export const WrappedScreen = () => {
   const { data } = useTopTracks()
