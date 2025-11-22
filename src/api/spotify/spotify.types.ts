@@ -8,6 +8,9 @@ type Followers = {
   href?: string | null // toujours null côté API aujourd'hui, doc le précise
   total: number
 }
+
+export type TimeRange = 'short_term' | 'medium_term' | 'long_term'
+
 export type SimplifiedArtistDTO = {
   id: string
   name: string

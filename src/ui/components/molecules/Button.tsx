@@ -1,14 +1,20 @@
-import Feather from '@expo/vector-icons/Feather'
 import { ActivityIndicator } from 'react-native'
 import { twMerge } from 'tailwind-merge'
 
-import { colors } from '$ui/theme/colors'
 import { Size } from '$ui/theme/theme.types'
 
 import { Text } from '../atoms'
+import {
+  BUTTON_VARIANTS,
+  TEXT_VARIANTS,
+  ICON_COLOR_VARIANTS,
+  BUTTON_SIZES,
+  TEXT_SIZES,
+  Variant,
+} from './Button.constants'
+import { Icon, IconProps } from '../atoms/Icon'
 import { Pressable, PressableProps } from '../atoms/Pressable'
 
-type Variant = 'primary' | 'secondary'
 export type ButtonProps = PressableProps & {
   title: string
   variant?: Variant
@@ -41,40 +47,29 @@ export const Button = ({
       </Text>
       {isLoading && <ActivityIndicator size="small" color={ICON_COLOR_VARIANTS[variant]} />}
       {iconRight && (
-        <Feather
-          name={iconRight as any}
-          size={ICON_SIZES[size]}
-          color={ICON_COLOR_VARIANTS[variant]}
-        />
+        <Icon name={iconRight as any} size={size} color={ICON_COLOR_VARIANTS[variant]} />
       )}
     </Pressable>
   )
 }
 
-const BUTTON_VARIANTS: Record<Variant, string> = {
-  primary: 'bg-primary',
-  secondary: 'border-secondary',
-}
-const TEXT_VARIANTS: Record<Variant, string> = {
-  primary: 'text-black',
-  secondary: 'text-white',
-}
-const ICON_COLOR_VARIANTS: Record<Variant, string> = {
-  primary: colors.black,
-  secondary: colors.white,
-}
-const BUTTON_SIZES: Record<Size, string> = {
-  sm: 'px-3 py-2',
-  md: 'px-4 py-3',
-  lg: 'px-5 py-4',
-}
-const TEXT_SIZES: Record<Size, string> = {
-  sm: 'text-sm',
-  md: 'text-base',
-  lg: 'text-lg',
-}
-const ICON_SIZES: Record<Size, number> = {
-  sm: 16,
-  md: 20,
-  lg: 24,
+export type IconButtonProps = PressableProps &
+  Omit<IconProps, 'color'> & {
+    variant?: Variant
+  }
+export const IconButton = ({
+  name,
+  size = 'md',
+  variant = 'primary',
+  className,
+  ...props
+}: IconButtonProps) => {
+  return (
+    <Pressable
+      className={twMerge('rounded-full p-2 border', BUTTON_VARIANTS[variant], className)}
+      {...props}
+    >
+      <Icon name={name} size={size} color={ICON_COLOR_VARIANTS[variant]} />
+    </Pressable>
+  )
 }

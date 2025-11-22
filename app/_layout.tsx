@@ -9,6 +9,7 @@ import { ReanimatedLogLevel, configureReanimatedLogger } from 'react-native-rean
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 
 import { useIsAppLoaded } from '$services/app'
+import { colors } from '$ui/theme/colors'
 
 SplashScreen.preventAutoHideAsync()
 configureReanimatedLogger({
@@ -37,8 +38,10 @@ export default function RootLayout() {
   return (
     <QueryClientProvider client={queryClient}>
       <SafeAreaProvider>
-        <Stack>
-          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack
+          screenOptions={{ headerShown: false, contentStyle: { backgroundColor: colors.black } }}
+        >
+          <Stack.Screen name="(tabs)" />
         </Stack>
       </SafeAreaProvider>
     </QueryClientProvider>
