@@ -20,7 +20,7 @@ export const Text = ({
   return (
     <RNText
       className={twMerge(
-        'font-[Inter]',
+        'font-[Inter] text-white',
         variants[variant],
         intents[intent],
         weights[weight],
@@ -38,7 +38,7 @@ const variants: Record<Variant, string> = {
   caption: 'text-sm text-darker-white',
 }
 const intents: Record<Intent, string> = {
-  default: 'text-white',
+  default: '',
   success: 'text-green-500',
   warning: 'text-yellow-500',
   info: 'text-blue-500',

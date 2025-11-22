@@ -99,5 +99,5 @@ export type Scopes = 'user-top-read' | 'playlist-modify-public'
 export type User = {
   id: string
   displayName: string
-  image?: string
+  images?: Image[]
 }

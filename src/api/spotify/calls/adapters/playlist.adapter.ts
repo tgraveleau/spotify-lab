@@ -7,7 +7,7 @@ export const adaptPlaylist = (playlist: PlaylistDTO): Playlist => ({
   id: playlist.id,
   name: playlist.name,
   description: playlist.description,
-  image: playlist.images[0].url,
+  image: playlist.images[0]?.url,
   externalUrl: playlist.external_urls.spotify,
   tracks: playlist.tracks.items.map((item) => adaptTrack(item.track)),
   uri: playlist.uri,

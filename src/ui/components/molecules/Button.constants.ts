@@ -1,19 +1,22 @@
 import { colors } from '$ui/theme/colors'
 import { Size } from '$ui/theme/theme.types'
 
-export type Variant = 'primary' | 'secondary'
+export type Variant = 'primary' | 'secondary' | 'ghost'
 
 export const BUTTON_VARIANTS: Record<Variant, string> = {
   primary: 'bg-primary',
-  secondary: 'border-secondary',
+  secondary: 'border border-secondary',
+  ghost: 'bg-light-gray active:bg-gray',
 }
 export const TEXT_VARIANTS: Record<Variant, string> = {
   primary: 'text-black',
   secondary: 'text-white',
+  ghost: 'text-white',
 }
 export const ICON_COLOR_VARIANTS: Record<Variant, string> = {
   primary: colors.black,
   secondary: colors.white,
+  ghost: colors.white,
 }
 export const BUTTON_SIZES: Record<Size, string> = {
   sm: 'px-4 py-2',

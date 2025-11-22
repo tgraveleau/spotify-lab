@@ -12,14 +12,14 @@ import {
   TEXT_SIZES,
   Variant,
 } from './Button.constants'
-import { Icon, IconProps } from '../atoms/Icon'
+import { Icon, IconName, IconProps } from '../atoms/Icon'
 import { Pressable, PressableProps } from '../atoms/Pressable'
 
 export type ButtonProps = PressableProps & {
   title: string
   variant?: Variant
   size?: Size
-  iconRight?: string
+  iconRight?: IconName
   isLoading?: boolean
 }
 export const Button = ({
@@ -34,7 +34,7 @@ export const Button = ({
   return (
     <Pressable
       className={twMerge(
-        'rounded-full flex-row gap-2 items-center justify-center border',
+        'rounded-full flex-row gap-2 items-center justify-center',
         BUTTON_VARIANTS[variant],
         BUTTON_SIZES[size],
         className
@@ -46,9 +46,7 @@ export const Button = ({
         {title}
       </Text>
       {isLoading && <ActivityIndicator size="small" color={ICON_COLOR_VARIANTS[variant]} />}
-      {iconRight && (
-        <Icon name={iconRight as any} size={size} color={ICON_COLOR_VARIANTS[variant]} />
-      )}
+      {iconRight && <Icon name={iconRight} size={size} color={ICON_COLOR_VARIANTS[variant]} />}
     </Pressable>
   )
 }
@@ -66,7 +64,7 @@ export const IconButton = ({
 }: IconButtonProps) => {
   return (
     <Pressable
-      className={twMerge('rounded-full p-2 border', BUTTON_VARIANTS[variant], className)}
+      className={twMerge('rounded-full p-2', BUTTON_VARIANTS[variant], className)}
       {...props}
     >
       <Icon name={name} size={size} color={ICON_COLOR_VARIANTS[variant]} />

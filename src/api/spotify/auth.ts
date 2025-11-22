@@ -40,14 +40,12 @@ export const useAuth = () => {
       const response = await spotifyApi.get<{
         id: string
         display_name: string
-        images: { url: string }[]
+        images: { url: string; width?: number; height?: number }[]
       }>('/me')
-      useSpotifyStore.setState({
-        user: {
-          id: response.data.id,
-          displayName: response.data.display_name,
-          image: response.data.images[0]?.url,
-        },
+      useSpotifyStore.getState().setUser({
+        id: response.data.id,
+        displayName: response.data.display_name,
+        images: response.data.images,
       })
     },
     onError: (error) => {

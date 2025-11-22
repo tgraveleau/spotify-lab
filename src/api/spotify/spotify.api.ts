@@ -107,11 +107,7 @@ spotifyApi.interceptors.response.use(
 
         const { access_token, refresh_token: newRefreshToken, token_type } = response.data
 
-        useSpotifyStore.setState({
-          accessToken: access_token,
-          refreshToken: newRefreshToken || refreshToken,
-          tokenType: token_type,
-        })
+        useSpotifyStore.getState().login(access_token, newRefreshToken || refreshToken, token_type)
 
         if (originalRequest.headers) {
           originalRequest.headers.Authorization = `${token_type} ${access_token}`
@@ -125,10 +121,7 @@ spotifyApi.interceptors.response.use(
         isRefreshing = false
         processQueue(refreshError as AxiosError, null)
 
-        useSpotifyStore.setState({
-          accessToken: undefined,
-          refreshToken: undefined,
-        })
+        useSpotifyStore.getState().logout()
 
         return Promise.reject(refreshError)
       }

@@ -13,6 +13,7 @@ interface SpotifyState {
   logout: () => void
   isAuthenticated: boolean
   user?: User
+  setUser: (user: User) => void
 }
 
 const KEY = 'spotify'
@@ -28,8 +29,10 @@ export const useSpotifyStore = create<SpotifyState>()(
           refreshToken: undefined,
           tokenType: undefined,
           isAuthenticated: false,
+          user: undefined,
         }),
       isAuthenticated: !!get()?.accessToken,
+      setUser: (user) => set({ user }),
     }),
     {
       name: KEY,
