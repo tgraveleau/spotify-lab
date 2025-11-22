@@ -5,11 +5,16 @@ import { Stack } from 'expo-router'
 import * as SplashScreen from 'expo-splash-screen'
 import { useEffect } from 'react'
 import { ActivityIndicator } from 'react-native'
+import { ReanimatedLogLevel, configureReanimatedLogger } from 'react-native-reanimated'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 
 import { useIsAppLoaded } from '$services/app'
 
 SplashScreen.preventAutoHideAsync()
+configureReanimatedLogger({
+  level: ReanimatedLogLevel.warn,
+  strict: false,
+})
 
 export const unstable_settings = {
   initialRouteName: 'index',

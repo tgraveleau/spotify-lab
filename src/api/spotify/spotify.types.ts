@@ -1,30 +1,22 @@
-// types/spotify.ts
-
-export type ExternalURLs = { spotify: string }
-
-export interface Image {
+type ExternalURLs = { spotify: string }
+type Image = {
   url: string
   height?: number | null
   width?: number | null
 }
-
-export interface Followers {
+type Followers = {
   href?: string | null // toujours null côté API aujourd'hui, doc le précise
   total: number
 }
-
-/** Simplified artist object used inside Track/Album */
-export interface SimplifiedArtist {
-  external_urls: ExternalURLs
-  href: string
+export type SimplifiedArtistDTO = {
   id: string
   name: string
+  external_urls: ExternalURLs
   type: 'artist'
   uri: string
 }
 
-/** Album object as returned inside a TrackObject */
-export interface Album {
+export type AlbumDTO = {
   album_type: 'album' | 'single' | 'compilation'
   total_tracks: number
   available_markets: string[] // ISO 3166-1 alpha-2
@@ -38,13 +30,12 @@ export interface Album {
   restrictions?: { reason: 'market' | 'product' | 'explicit' } | null
   type: 'album'
   uri: string
-  artists: SimplifiedArtist[] // artistes listés sur l'album
+  artists: SimplifiedArtistDTO[] // artistes listés sur l'album
 }
 
-/** Full TrackObject (champs pertinents pour /me/top/tracks) */
-export interface TopTrack {
-  album: Album
-  artists: SimplifiedArtist[]
+export type TrackDTO = {
+  album: AlbumDTO
+  artists: SimplifiedArtistDTO[]
   available_markets: string[]
   disc_number: number
   duration_ms: number
@@ -65,8 +56,7 @@ export interface TopTrack {
   is_local?: boolean
 }
 
-/** Full ArtistObject (champs pertinents pour /me/top/artists) */
-export interface TopArtist {
+export type ArtistDTO = {
   external_urls: ExternalURLs
   followers: Followers
   genres: string[] // peut être vide
@@ -79,7 +69,19 @@ export interface TopArtist {
   uri: string
 }
 
-export interface PaginatedResponse<T> {
+export type PlaylistDTO = {
+  id: string
+  name: string
+  description: string
+  images: Image[]
+  external_urls: ExternalURLs
+  tracks: PaginatedResponse<{
+    track: TrackDTO
+  }>
+  uri: string
+}
+
+export type PaginatedResponse<T> = {
   href: string
   limit: number
   next: string | null

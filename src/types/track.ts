@@ -7,8 +7,8 @@ export type Track = {
   artists: Artist[]
   album: Album
   duration: number
-  href: string
-  uri: string
+  externalUrl: string
   previewUrl?: string
   explicit: boolean
+  uri: string
 }

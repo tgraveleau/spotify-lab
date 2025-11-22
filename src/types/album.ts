@@ -5,10 +5,10 @@ export type Album = {
   name: string
   artists: Artist[]
   image: string
-  href: string
-  uri: string
+  externalUrl: string
   type: 'album' | 'single' | 'compilation'
   totalTracks: number
   releaseDate: string
   releaseDatePrecision: 'year' | 'month' | 'day'
+  uri: string
 }

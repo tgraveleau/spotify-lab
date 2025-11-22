@@ -1,11 +1,12 @@
 import Feather from '@expo/vector-icons/Feather'
-import { Pressable, PressableProps } from 'react-native'
+import { ActivityIndicator } from 'react-native'
 import { twMerge } from 'tailwind-merge'
 
 import { colors } from '$ui/theme/colors'
 import { Size } from '$ui/theme/theme.types'
 
 import { Text } from '../atoms'
+import { Pressable, PressableProps } from '../atoms/Pressable'
 
 type Variant = 'primary' | 'secondary'
 export type ButtonProps = PressableProps & {
@@ -13,12 +14,14 @@ export type ButtonProps = PressableProps & {
   variant?: Variant
   size?: Size
   iconRight?: string
+  isLoading?: boolean
 }
 export const Button = ({
   title,
   variant = 'primary',
   size = 'md',
   iconRight,
+  isLoading,
   className,
   ...props
 }: ButtonProps) => {
@@ -31,10 +34,12 @@ export const Button = ({
         className
       )}
       {...props}
+      disabled={isLoading}
     >
       <Text weight="semibold" className={twMerge(TEXT_VARIANTS[variant], TEXT_SIZES[size])}>
         {title}
       </Text>
+      {isLoading && <ActivityIndicator size="small" color={ICON_COLOR_VARIANTS[variant]} />}
       {iconRight && (
         <Feather
           name={iconRight as any}
@@ -48,15 +53,15 @@ export const Button = ({
 
 const BUTTON_VARIANTS: Record<Variant, string> = {
   primary: 'bg-primary',
-  secondary: 'border-primary',
+  secondary: 'border-secondary',
 }
 const TEXT_VARIANTS: Record<Variant, string> = {
-  primary: 'text-white',
-  secondary: 'text-primary',
+  primary: 'text-black',
+  secondary: 'text-white',
 }
 const ICON_COLOR_VARIANTS: Record<Variant, string> = {
-  primary: colors.white,
-  secondary: colors.primary,
+  primary: colors.black,
+  secondary: colors.white,
 }
 const BUTTON_SIZES: Record<Size, string> = {
   sm: 'px-3 py-2',
@@ -64,12 +69,12 @@ const BUTTON_SIZES: Record<Size, string> = {
   lg: 'px-5 py-4',
 }
 const TEXT_SIZES: Record<Size, string> = {
-  sm: 'text-lg',
-  md: 'text-xl',
-  lg: 'text-2xl',
+  sm: 'text-sm',
+  md: 'text-base',
+  lg: 'text-lg',
 }
 const ICON_SIZES: Record<Size, number> = {
-  sm: 18,
-  md: 22,
-  lg: 26,
+  sm: 16,
+  md: 20,
+  lg: 24,
 }

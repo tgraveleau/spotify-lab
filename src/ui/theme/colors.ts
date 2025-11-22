@@ -11,6 +11,8 @@ const palette = {
 export const colors = {
   primary: palette.green,
   'primary-highlighted': palette.greenHover,
+  secondary: palette.darkerWhite,
+  'secondary-highlighted': palette.white,
   white: palette.white,
   'darker-white': palette.darkerWhite,
   gray: palette.gray,

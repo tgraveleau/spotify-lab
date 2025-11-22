@@ -3,7 +3,7 @@ import axios, { AxiosError, InternalAxiosRequestConfig } from 'axios'
 import { SPOTIFY_CONFIG } from '$api/spotify/spotify.constants'
 import { useSpotifyStore } from '$api/spotify/spotify.store'
 
-import { AuthResponse } from './spotify.types'
+import { Scopes } from './spotify.types'
 
 export const spotifyAccountsApi = axios.create({
   baseURL: SPOTIFY_CONFIG.ACCOUNTS_BASE_URL,
@@ -97,7 +97,13 @@ spotifyApi.interceptors.response.use(
           client_id: SPOTIFY_CONFIG.CLIENT_ID,
         })
 
-        const response = await spotifyAccountsApi.post<AuthResponse>('/api/token', body.toString())
+        const response = await spotifyAccountsApi.post<{
+          access_token: string
+          refresh_token: string
+          expires_in: number
+          token_type: string
+          scope: Scopes[]
+        }>('/api/token', body.toString())
 
         const { access_token, refresh_token: newRefreshToken, token_type } = response.data
 

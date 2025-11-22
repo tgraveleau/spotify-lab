@@ -13,12 +13,20 @@ export const DiscoverScreen = () => {
       subtitle="Create a playlist with a few songs of artists of your choice"
     >
       <Box className="flex-1 px-md">
+        <Button
+          title="Create playlist"
+          onPress={() =>
+            createPlaylist({
+              name: 'My playlist',
+            })
+          }
+        />
         {playlist ? (
           <Button
             title="Open playlist"
             variant="secondary"
             iconRight="external-link"
-            onPress={() => Linking.openURL(playlist.external_url)}
+            onPress={() => Linking.openURL(playlist.externalUrl)}
           />
         ) : (
           <Button

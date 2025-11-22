@@ -1,39 +1,29 @@
 import { useMutation } from '@tanstack/react-query'
 
+import { Track } from '$types/track'
+
 import { spotifyApi } from '../spotify.api'
 import { useSpotifyStore } from '../spotify.store'
-
-type PlaylistResponse = {
-  id: string
-  name: string
-  description: string
-  public: boolean
-  uri: string
-  href: string
-  images: { url: string }[]
-}
+import { PlaylistDTO } from '../spotify.types'
+import { adaptPlaylist } from './adapters/playlist.adapter'
 
 export const useCreatePlaylist = () => {
   const { user } = useSpotifyStore()
   return useMutation({
-    mutationFn: async ({ name }: { name: string }) => {
+    mutationFn: async ({ name, tracks }: { name: string; tracks?: Track[] }) => {
       if (!user) {
         throw new Error('User not found')
       }
-      const response = await spotifyApi.post<{
-        external_urls: {
-          spotify: string
-        }
-      }>(`/users/${user.id}/playlists`, {
+      const response = await spotifyApi.post<PlaylistDTO>(`/users/${user.id}/playlists`, {
         name,
         description: 'Created with Spotify Lab',
       })
-      return {
-        external_url: response.data.external_urls.spotify,
+      if (tracks) {
+        await spotifyApi.post<{ snapshot_id: string }>(`/playlists/${response.data.id}/tracks`, {
+          uris: tracks.map((track) => track.uri),
+        })
       }
-    },
-    onSuccess: (data) => {
-      console.log('playlist created', data)
+      return adaptPlaylist(response.data)
     },
   })
 }
