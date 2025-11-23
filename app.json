@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "spotify-lab",
-    "slug": "Spotify lab",
+    "name": "Spotify Lab",
+    "slug": "spotify-lab",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./src/assets/images/icon.png",
@@ -10,7 +10,10 @@
     "newArchEnabled": true,
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.spotifylab.app"
+      "bundleIdentifier": "com.spotifylab.app",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
     },
     "android": {
       "adaptiveIcon": {
@@ -32,7 +35,10 @@
               "host": "oauth"
             }
           ],
-          "category": ["BROWSABLE", "DEFAULT"]
+          "category": [
+            "BROWSABLE",
+            "DEFAULT"
+          ]
         }
       ]
     },
@@ -59,6 +65,12 @@
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "24fbe911-55ee-44f6-a8cd-fac173066134"
+      }
     }
   }
 }
