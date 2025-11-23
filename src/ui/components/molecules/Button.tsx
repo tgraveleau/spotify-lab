@@ -11,6 +11,7 @@ import {
   BUTTON_SIZES,
   TEXT_SIZES,
   Variant,
+  ICON_BUTTON_SIZES,
 } from './Button.constants'
 import { Icon, IconName, IconProps } from '../atoms/Icon'
 import { Pressable, PressableProps } from '../atoms/Pressable'
@@ -28,21 +29,30 @@ export const Button = ({
   size = 'md',
   iconRight,
   isLoading,
+  disabled,
   className,
   ...props
 }: ButtonProps) => {
   return (
     <Pressable
       className={twMerge(
-        'rounded-full flex-row gap-2 items-center justify-center',
+        'rounded-xl flex-row gap-2 items-center justify-center',
         BUTTON_VARIANTS[variant],
         BUTTON_SIZES[size],
+        disabled && 'bg-light-gray',
         className
       )}
+      disabled={isLoading || disabled}
       {...props}
-      disabled={isLoading}
     >
-      <Text weight="semibold" className={twMerge(TEXT_VARIANTS[variant], TEXT_SIZES[size])}>
+      <Text
+        weight="semibold"
+        className={twMerge(
+          TEXT_VARIANTS[variant],
+          TEXT_SIZES[size],
+          disabled && 'text-darker-white'
+        )}
+      >
         {title}
       </Text>
       {isLoading && <ActivityIndicator size="small" color={ICON_COLOR_VARIANTS[variant]} />}
@@ -54,20 +64,30 @@ export const Button = ({
 export type IconButtonProps = PressableProps &
   Omit<IconProps, 'color'> & {
     variant?: Variant
+    color?: string
+    noContainer?: boolean
   }
 export const IconButton = ({
   name,
   size = 'md',
   variant = 'primary',
+  color = ICON_COLOR_VARIANTS[variant],
+  noContainer = false,
   className,
   ...props
 }: IconButtonProps) => {
   return (
     <Pressable
-      className={twMerge('rounded-full p-2', BUTTON_VARIANTS[variant], className)}
+      className={twMerge(
+        'rounded-full',
+        BUTTON_VARIANTS[variant],
+        ICON_BUTTON_SIZES[size],
+        noContainer && 'p-0 bg-transparent',
+        className
+      )}
       {...props}
     >
-      <Icon name={name} size={size} color={ICON_COLOR_VARIANTS[variant]} />
+      <Icon name={name} size={size} color={color} />
     </Pressable>
   )
 }

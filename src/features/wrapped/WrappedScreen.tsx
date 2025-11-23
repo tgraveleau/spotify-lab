@@ -40,7 +40,7 @@ export const WrappedScreen = () => {
       title="Wrapped"
       subtitle="Créez un wrapped de vos morceaux les plus écoutés sur une période donnée pour le partager avec vos amis ou le réécouter plus tard"
     >
-      <Box className="flex-1 px-md">
+      <Box className="flex-1 p-md">
         <Box className="gap-sm">
           {timeRanges.map(({ timeRange, title, subtitle, icon }) => (
             <Card

@@ -1,4 +1,4 @@
-import { Track } from './track'
+import { Track } from './track.type'
 
 export type Playlist = {
   id: string

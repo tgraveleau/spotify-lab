@@ -48,7 +48,7 @@ export const ProfileScreen = () => {
                     <Text variant="subtitle" weight="bold" className="mb-xxs">
                       {user.displayName || 'Utilisateur'}
                     </Text>
-                    <Text variant="caption" className="text-darker-white">
+                    <Text variant="ghost" className="text-darker-white">
                       Compte Spotify connecté
                     </Text>
                   </Box>
@@ -79,7 +79,7 @@ export const ProfileScreen = () => {
             />
             {error && (
               <Box className="bg-red-900/20 border border-red-900/50 rounded-xl p-md">
-                <Text variant="caption" className="text-red-400 text-center">
+                <Text variant="ghost" className="text-red-400 text-center">
                   {error}
                 </Text>
               </Box>

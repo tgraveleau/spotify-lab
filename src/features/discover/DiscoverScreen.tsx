@@ -1,14 +1,24 @@
-import { Box, Text } from '$ui/components/atoms'
+import { router } from 'expo-router'
+
+import { Box } from '$ui/components/atoms'
 import { Screen } from '$ui/components/layout'
+import { Card } from '$ui/components/organisms'
 
 export const DiscoverScreen = () => {
   return (
     <Screen
       title="Discover"
-      subtitle="Create a playlist with a few songs of artists of your choice"
+      subtitle="Créez une playlist personnalisée en sélectionnant vos artistes préférés et leurs meilleurs titres"
     >
-      <Box centered className="flex-1">
-        <Text>Coming soon...</Text>
+      <Box className="flex-1 p-md">
+        <Box className="gap-md">
+          <Card
+            title="Découvrez de nouveaux artistes"
+            subtitle="Recherchez et sélectionnez vos artistes favoris pour créer une playlist unique avec leurs meilleurs titres"
+            icon="search"
+            onPress={() => router.push({ pathname: '/discover/create' })}
+          />
+        </Box>
       </Box>
     </Screen>
   )

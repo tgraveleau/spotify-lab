@@ -1,7 +1,7 @@
 import { Text as RNText, TextProps as RNTextProps } from 'react-native'
 import { twMerge } from 'tailwind-merge'
 
-type Variant = 'body' | 'title' | 'subtitle' | 'caption'
+type Variant = 'body' | 'title' | 'ghost'
 type Intent = 'default' | 'success' | 'warning' | 'info' | 'danger'
 type Weight = 'regular' | 'medium' | 'semibold' | 'bold'
 export type TextProps = RNTextProps & {
@@ -33,9 +33,8 @@ export const Text = ({
 
 const variants: Record<Variant, string> = {
   body: '',
-  title: 'text-2xl font-bold',
-  subtitle: 'text-md font-medium',
-  caption: 'text-sm text-darker-white',
+  title: 'text-2xl font-bold text-white',
+  ghost: 'text-sm text-darker-white',
 }
 const intents: Record<Intent, string> = {
   default: '',

@@ -17,6 +17,9 @@ export type SimplifiedArtistDTO = {
   external_urls: ExternalURLs
   type: 'artist'
   uri: string
+  images: Image[]
+  followers: Followers
+  genres: string[]
 }
 
 export type AlbumDTO = {
@@ -95,9 +98,3 @@ export type PaginatedResponse<T> = {
 }
 
 export type Scopes = 'user-top-read' | 'playlist-modify-public'
-
-export type User = {
-  id: string
-  displayName: string
-  images?: Image[]
-}

@@ -1,5 +1,5 @@
 import { PlaylistDTO } from '$api/spotify/spotify.types'
-import { Playlist } from '$types/playlist'
+import { Playlist } from '$types/playlist.type'
 
 import { adaptTrack } from './track.adapter'
 

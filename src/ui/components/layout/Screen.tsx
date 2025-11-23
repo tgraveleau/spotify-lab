@@ -19,7 +19,7 @@ export const Screen = ({
   ...props
 }: ScreenProps) => {
   return (
-    <SafeAreaView className="flex-1 bg-black" edges={['top']} {...props}>
+    <SafeAreaView className="flex-1 bg-black" edges={['top', 'bottom']} {...props}>
       <StatusBar style="light" />
       {title && (
         <Box className="px-lg py-sm">
@@ -36,7 +36,7 @@ export const Screen = ({
               <Text variant="title" weight="bold">
                 {title}
               </Text>
-              {subtitle && <Text variant="caption">{subtitle}</Text>}
+              {subtitle && <Text variant="ghost">{subtitle}</Text>}
             </Box>
           </HStack>
         </Box>

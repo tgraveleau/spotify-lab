@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query'
 
-import { Track } from '$types/track'
+import { Track } from '$types/track.type'
 
 import { spotifyApi } from '../spotify.api'
 import { useSpotifyStore } from '../spotify.store'

@@ -1,5 +1,5 @@
 import { AlbumDTO } from '$api/spotify/spotify.types'
-import { Album } from '$types/album'
+import { Album } from '$types/album.type'
 
 import { adaptSimplifiedArtist } from './artist.adapter'
 

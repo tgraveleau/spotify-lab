@@ -1,20 +1,40 @@
 import { twMerge } from 'tailwind-merge'
 
-import { Box, BoxProps, Text } from '../atoms'
+import { BoxProps, HStack, Text, TextProps } from '../atoms'
+import { IconButton } from './Button'
 
-export type BadgeProps = BoxProps & {
-  text: string
-}
-export const Badge = ({ text, className, ...props }: BadgeProps) => {
+export type BadgeProps = BoxProps &
+  TextProps & {
+    text: string
+    onIconPress?: () => void
+    skinny?: boolean
+  }
+export const Badge = ({
+  text,
+  variant = 'ghost',
+  weight = 'semibold',
+  skinny = false,
+  onIconPress,
+  className,
+  ...props
+}: BadgeProps) => {
   return (
-    <Box
+    <HStack
+      centered
       className={twMerge(
-        'rounded-sm items-center justify-center px-[2px] bg-darker-white text-black',
+        'rounded px-xs py-xxs gap-xxs bg-light-gray',
+        skinny && 'px-xxs py-0',
+        onIconPress && 'pr-xxs',
         className
       )}
       {...props}
     >
-      <Text className="text-xs font-semibold text-black">{text}</Text>
-    </Box>
+      <Text variant={variant} weight={weight}>
+        {text}
+      </Text>
+      {onIconPress && (
+        <IconButton name="close" size="sm" variant="ghost" onPress={onIconPress} noContainer />
+      )}
+    </HStack>
   )
 }

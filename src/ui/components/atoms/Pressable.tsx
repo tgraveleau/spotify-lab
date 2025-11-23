@@ -2,7 +2,7 @@ import { Pressable as RNPressable, PressableProps as RNPressableProps } from 're
 import { twMerge } from 'tailwind-merge'
 
 export type PressableProps = RNPressableProps & {
-  animation?: 'scale' | 'opacity'
+  animation?: 'scale' | 'opacity' | 'none'
 }
 export const Pressable = ({ animation = 'scale', className, ...props }: PressableProps) => {
   const isClickable = props.onPress && !props.disabled
@@ -13,7 +13,7 @@ export const Pressable = ({ animation = 'scale', className, ...props }: Pressabl
       {...props}
       className={twMerge(
         'transition duration-200 ease-in-out',
-        animation === 'scale' ? scaleClassName : opacityClassName,
+        animation === 'scale' ? scaleClassName : animation === 'opacity' ? opacityClassName : '',
         className
       )}
     />

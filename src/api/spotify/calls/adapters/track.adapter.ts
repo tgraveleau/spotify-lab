@@ -1,5 +1,5 @@
 import { TrackDTO } from '$api/spotify/spotify.types'
-import { Track } from '$types/track'
+import { Track } from '$types/track.type'
 
 import { adaptAlbum } from './album.adapter'
 import { adaptSimplifiedArtist } from './artist.adapter'

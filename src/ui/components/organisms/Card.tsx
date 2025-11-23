@@ -24,10 +24,8 @@ export const Card = ({ title, subtitle, icon, onPress }: CardProps) => {
           </Box>
         )}
         <Box className="flex-1 gap-xxs">
-          <Text variant="subtitle" weight="semibold">
-            {title}
-          </Text>
-          {subtitle && <Text variant="caption">{subtitle}</Text>}
+          <Text weight="semibold">{title}</Text>
+          {subtitle && <Text variant="ghost">{subtitle}</Text>}
         </Box>
       </HStack>
       <Icon name="chevron-forward" size="md" color={colors['darker-white']} />

@@ -1,5 +1,5 @@
-import { Album } from './album'
-import { Artist } from './artist'
+import { Album } from './album.type'
+import { Artist } from './artist.type'
 
 export type Track = {
   id: string

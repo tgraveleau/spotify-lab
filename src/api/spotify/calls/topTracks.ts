@@ -1,5 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 
+import { NumberRange } from '$types/types.utils'
+
 import { spotifyApi } from '../spotify.api'
 import { PaginatedResponse, TimeRange, TrackDTO } from '../spotify.types'
 import { adaptTrack } from './adapters/track.adapter'
@@ -9,7 +11,7 @@ export const useTopTracks = ({
   nbOfTracks = 50,
 }: {
   timeRange: TimeRange
-  nbOfTracks?: number
+  nbOfTracks?: NumberRange<1, 50>
 }) => {
   return useQuery({
     queryKey: ['top-tracks', timeRange, nbOfTracks],
