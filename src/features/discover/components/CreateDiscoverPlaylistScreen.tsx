@@ -1,16 +1,12 @@
 import { ActivityIndicator, Linking } from 'react-native'
-import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { twMerge } from 'tailwind-merge'
 
-import { Artist } from '$types/artist.type'
 import { Track } from '$types/track.type'
 import { Box, HStack, Text } from '$ui/components/atoms'
 import { Button } from '$ui/components/molecules'
 import { FlatList, Track as TrackComponent } from '$ui/components/organisms'
 
 type CreateDiscoverPlaylistScreenProps = {
-  selectedArtists: Artist[]
-  tracksPerArtist: number
   tracks: Track[] | null
   isCreatingPlaylist: boolean
   playlistUrl?: string
@@ -18,15 +14,11 @@ type CreateDiscoverPlaylistScreenProps = {
 }
 
 export const CreateDiscoverPlaylistScreen = ({
-  selectedArtists,
-  tracksPerArtist,
   tracks,
   isCreatingPlaylist,
   playlistUrl,
   onCreatePlaylist,
 }: CreateDiscoverPlaylistScreenProps) => {
-  const insets = useSafeAreaInsets()
-
   return (
     <Box className="flex-1" style={{ width: '100%' }}>
       {!tracks ? (
@@ -39,10 +31,8 @@ export const CreateDiscoverPlaylistScreen = ({
       ) : (
         <>
           <Box className="px-md pt-md gap-sm">
-            <Text weight="semibold">Prévisualisation de votre playlist</Text>
             <Text variant="ghost" className="text-darker-white">
-              {selectedArtists.length} artiste{selectedArtists.length > 1 ? 's' : ''} •{' '}
-              {tracks.length} titre{tracks.length > 1 ? 's' : ''} ({tracksPerArtist} par artiste)
+              {tracks.length} titre{tracks.length > 1 ? 's' : ''}
             </Text>
           </Box>
           <FlatList
@@ -69,7 +59,6 @@ export const CreateDiscoverPlaylistScreen = ({
               />
             )}
           </HStack>
-          <Box style={{ height: insets.bottom }} />
         </>
       )}
     </Box>

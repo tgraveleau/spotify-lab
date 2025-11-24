@@ -10,12 +10,14 @@ export type ScreenProps = SafeAreaViewProps & {
   title?: string
   subtitle?: string
   withBackButton?: boolean
+  onBackButtonPress?: () => void
 }
 export const Screen = ({
   title,
   subtitle,
   children,
   withBackButton = false,
+  onBackButtonPress,
   ...props
 }: ScreenProps) => {
   return (
@@ -29,7 +31,7 @@ export const Screen = ({
                 name="arrow-back"
                 variant="ghost"
                 size="md"
-                onPress={() => router.back()}
+                onPress={onBackButtonPress ?? (() => router.back())}
               />
             )}
             <Box className="flex-1 gap-xxs">

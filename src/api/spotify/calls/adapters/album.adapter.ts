@@ -7,7 +7,7 @@ export const adaptAlbum = (album: AlbumDTO): Album => ({
   id: album.id,
   name: album.name,
   artists: album.artists.map(adaptSimplifiedArtist),
-  image: album.images[0].url,
+  image: album.images && album.images.length > 0 ? album.images[0].url : undefined,
   externalUrl: album.external_urls.spotify,
   type: album.album_type,
   totalTracks: album.total_tracks,

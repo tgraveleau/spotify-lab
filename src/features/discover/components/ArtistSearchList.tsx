@@ -1,40 +1,46 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
+import { useArtistsTopTracks } from '$api/spotify/calls/artists'
 import { useSearch } from '$api/spotify/calls/search'
 import { Artist } from '$types/artist.type'
+import { Track } from '$types/track.type'
 import { Box, Text } from '$ui/components/atoms'
 import { Badge, Button, SearchList } from '$ui/components/molecules'
 import { ArtistSearchResult, FlatList } from '$ui/components/organisms'
 
 type ArtistSearchListProps = {
-  selectedArtists: Artist[]
-  tracksPerArtist: number
-  onArtistsChange: (artists: Artist[]) => void
-  onTracksPerArtistChange: (count: number) => void
-  onContinue: () => void
+  onContinue: (tracks: Track[]) => void
 }
 
-export const ArtistSearchList = ({
-  selectedArtists,
-  tracksPerArtist,
-  onArtistsChange,
-  onTracksPerArtistChange,
-  onContinue,
-}: ArtistSearchListProps) => {
+export const ArtistSearchList = ({ onContinue }: ArtistSearchListProps) => {
   const [searchQuery, setSearchQuery] = useState('')
-  const { data: artists = [], isLoading } = useSearch({
+  const [selectedArtists, setSelectedArtists] = useState<Artist[]>([])
+  // We separate the artists to search from the selected artists to avoid triggering too many requests
+  const [artistsToSearch, setArtistsToSearch] = useState<Artist[]>([])
+  const { data: artists = [] } = useSearch({
     type: 'artist',
     query: searchQuery,
   })
+  const {
+    data: tracks = [],
+    isSuccess,
+    isFetching,
+  } = useArtistsTopTracks({ artists: artistsToSearch })
+
+  useEffect(() => {
+    if (isSuccess) {
+      onContinue(tracks)
+    }
+  }, [isSuccess, tracks, onContinue])
 
   const handleRemoveArtist = (artistId: string) => {
-    onArtistsChange(selectedArtists.filter((a) => a.id !== artistId))
+    setSelectedArtists(selectedArtists.filter((a) => a.id !== artistId))
   }
   const handlePressArtist = (artist: Artist) => {
     if (selectedArtists.some((a) => a.id === artist.id)) {
       handleRemoveArtist(artist.id)
     } else {
-      onArtistsChange([...selectedArtists, artist])
+      setSelectedArtists([...selectedArtists, artist])
     }
   }
 
@@ -93,7 +99,12 @@ export const ArtistSearchList = ({
         )}
       />
       <Box className="px-lg py-sm">
-        <Button title="Continuer" onPress={onContinue} disabled={selectedArtists.length === 0} />
+        <Button
+          title="Visualiser ma playlist"
+          onPress={() => setArtistsToSearch(selectedArtists)}
+          isLoading={isFetching}
+          disabled={selectedArtists.length === 0}
+        />
       </Box>
     </Box>
   )

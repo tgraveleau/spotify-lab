@@ -4,7 +4,7 @@ export type Album = {
   id: string
   name: string
   artists: Artist[]
-  image: string
+  image?: string
   externalUrl: string
   type: 'album' | 'single' | 'compilation'
   totalTracks: number

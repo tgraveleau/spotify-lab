@@ -4,9 +4,9 @@ import { Artist } from '$types/artist.type'
 export const adaptSimplifiedArtist = (artist: SimplifiedArtistDTO): Artist => ({
   id: artist.id,
   name: artist.name,
-  image: artist.images[0]?.url,
+  image: artist.images && artist.images.length > 0 ? artist.images[0].url : undefined,
   externalUrl: artist.external_urls.spotify,
   uri: artist.uri,
   genres: artist.genres,
-  followers: artist.followers.total,
+  followers: artist.followers?.total,
 })

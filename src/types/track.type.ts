@@ -8,7 +8,6 @@ export type Track = {
   album: Album
   duration: number
   externalUrl: string
-  previewUrl?: string
   explicit: boolean
   uri: string
 }

@@ -36,7 +36,7 @@ export const Button = ({
   return (
     <Pressable
       className={twMerge(
-        'rounded-xl flex-row gap-2 items-center justify-center',
+        'rounded-full flex-row gap-2 items-center justify-center',
         BUTTON_VARIANTS[variant],
         BUTTON_SIZES[size],
         disabled && 'bg-light-gray',

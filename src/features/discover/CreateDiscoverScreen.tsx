@@ -1,7 +1,7 @@
+import { router } from 'expo-router'
 import { useRef, useState } from 'react'
 import { Dimensions, ScrollView } from 'react-native'
 
-import { Artist } from '$types/artist.type'
 import { Track } from '$types/track.type'
 import { Box } from '$ui/components/atoms'
 import { Screen } from '$ui/components/layout'
@@ -13,17 +13,14 @@ const { width: SCREEN_WIDTH } = Dimensions.get('window')
 
 export const CreateDiscoverScreen = () => {
   const scrollViewRef = useRef<ScrollView>(null)
-  const [selectedArtists, setSelectedArtists] = useState<Artist[]>([])
-  const [tracksPerArtist, setTracksPerArtist] = useState(3)
-  // TODO: Replace with actual API call to fetch tracks
-  const [tracks, setTracks] = useState<Track[] | null>(null)
+  const [step, setStep] = useState<'search' | 'playlist'>('search')
+  const [tracks, setTracks] = useState<Track[]>([])
   const [isCreatingPlaylist, setIsCreatingPlaylist] = useState(false)
   const [playlistUrl, setPlaylistUrl] = useState<string>()
 
-  const handleContinueFromSearch = () => {
-    // TODO: Fetch tracks for selected artists
-    // For now, set tracks to empty array to show loading state
-    setTracks(null)
+  const handleContinueFromSearch = (tracks: Track[]) => {
+    setTracks(tracks)
+    setStep('playlist')
     scrollViewRef.current?.scrollTo({
       x: SCREEN_WIDTH,
       animated: true,
@@ -40,8 +37,25 @@ export const CreateDiscoverScreen = () => {
     }, 2000)
   }
 
+  const onBackButtonPress = () => {
+    if (step === 'search') {
+      router.back()
+    } else {
+      scrollViewRef.current?.scrollTo({
+        x: 0,
+        animated: true,
+      })
+      setStep('search')
+    }
+  }
+
   return (
-    <Screen withBackButton title="Créer une playlist" subtitle="Découvrez de nouveaux artistes">
+    <Screen
+      withBackButton
+      title="Créer une playlist"
+      subtitle="Découvrez de nouveaux artistes"
+      onBackButtonPress={onBackButtonPress}
+    >
       <ScrollView
         ref={scrollViewRef}
         horizontal
@@ -51,18 +65,10 @@ export const CreateDiscoverScreen = () => {
         className="flex-1"
       >
         <Box style={{ width: SCREEN_WIDTH }}>
-          <ArtistSearchList
-            selectedArtists={selectedArtists}
-            tracksPerArtist={tracksPerArtist}
-            onArtistsChange={setSelectedArtists}
-            onTracksPerArtistChange={setTracksPerArtist}
-            onContinue={handleContinueFromSearch}
-          />
+          <ArtistSearchList onContinue={handleContinueFromSearch} />
         </Box>
         <Box style={{ width: SCREEN_WIDTH }}>
           <CreateDiscoverPlaylistScreen
-            selectedArtists={selectedArtists}
-            tracksPerArtist={tracksPerArtist}
             tracks={tracks}
             isCreatingPlaylist={isCreatingPlaylist}
             playlistUrl={playlistUrl}

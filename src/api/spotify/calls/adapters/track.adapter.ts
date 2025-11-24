@@ -11,7 +11,6 @@ export const adaptTrack = (track: TrackDTO): Track => ({
   album: adaptAlbum(track.album),
   duration: track.duration_ms,
   externalUrl: track.external_urls.spotify,
-  previewUrl: track.preview_url ?? undefined,
   explicit: track.explicit,
   uri: track.uri,
 })

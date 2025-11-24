@@ -18,7 +18,7 @@ export type SimplifiedArtistDTO = {
   type: 'artist'
   uri: string
   images: Image[]
-  followers: Followers
+  followers?: Followers
   genres: string[]
 }
 

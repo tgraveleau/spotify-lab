@@ -1,8 +1,8 @@
 import { useState } from 'react'
 
-import { Box } from '../atoms'
 import { Input } from './Input'
-import { FlatList, FlatListProps } from '../organisms'
+import { Box } from '../atoms/Box'
+import { FlatList, FlatListProps } from '../organisms/FlatList'
 
 export type SearchListProps<T> = FlatListProps<T> & {
   onSearchChange: (query: string) => void

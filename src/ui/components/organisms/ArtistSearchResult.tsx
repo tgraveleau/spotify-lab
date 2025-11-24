@@ -2,10 +2,8 @@ import { Artist } from '$types/artist.type'
 import { formatNumber } from '$ui/text.utils'
 import { colors } from '$ui/theme/colors'
 
-import { Box, HStack, Text } from '../atoms'
-import { Avatar } from '../atoms/Avatar'
-import { Badge } from '../molecules'
-import { IconButton } from '../molecules/Button'
+import { Avatar, Box, HStack, Text } from '../atoms'
+import { Badge, IconButton } from '../molecules'
 
 export type ArtistSearchResultProps = {
   artist: Artist
